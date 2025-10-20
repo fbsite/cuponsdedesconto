@@ -14,25 +14,27 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="Fábio Oliveira — Confira todos os meus negócios">
   <meta property="og:description" content="Conheça todos os sites e projetos de Fábio Oliveira, criador do Santo Salgado e produtos milionários.">
-  <meta property="og:image" content="https://cdn.pixabay.com/photo/2017/06/13/13/11/man-2399039_640.jpg">
+  <meta property="og:image" content="https://i.imgur.com/DnpbPeV.jpeg">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:title" content="Fábio Oliveira — Confira todos os meus negócios">
   <meta property="twitter:description" content="Conheça todos os sites e projetos de Fábio Oliveira, criador do Santo Salgado e produtos milionários.">
-  <meta property="twitter:image" content="https://cdn.pixabay.com/photo/2017/06/13/13/11/man-2399039_640.jpg">
+  <meta property="twitter:image" content="https://i.imgur.com/DnpbPeV.jpeg">
 
   <!-- Fontes -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   
   <style>
     :root {
-      --accent-green: #10b981;
-      --accent-blue: #3b82f6; 
-      --bg: #f4f7f6; 
-      --text: #111827; 
-      --muted: #6b7280;
-      --radius: 20px;
+      /* Paleta de cores: Vermelho e Laranja */
+      --accent-orange: #f97316;
+      --accent-red: #ef4444;
+      --bg-dark-navy: #0f172a;
+      --text-light: #e2e8f0;
+      --text-muted: #94a3b8;
+      --glass-border: rgba(249, 115, 22, 0.3); /* Laranja */
+      --radius: 16px;
     }
     
     * {
@@ -40,17 +42,72 @@
       margin: 0;
       padding: 0;
     }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-dark-navy);
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: var(--accent-orange);
+      border-radius: 10px;
+    }
     
     body {
-      background: var(--bg);
-      color: var(--text);
+      color: var(--text-light);
       font-family: 'Poppins', sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       min-height: 100vh;
-      padding: 40px 16px;
+      padding: 30px 16px;
+      position: relative;
+      background-color: var(--bg-dark-navy);
+      -webkit-user-select: none; /* Safari */
+      -ms-user-select: none; /* IE 10+ */
+      user-select: none; /* Padrão */
+    }
+
+    /* Fundo com imagem e gradientes de brilho */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: -1;
+      background-image: 
+        /* Gradientes para brilhos (glow) */
+        radial-gradient(circle at 15% 80%, rgba(239, 68, 68, 0.3), transparent 30%), /* Vermelho */
+        radial-gradient(circle at 85% 20%, rgba(249, 115, 22, 0.4), transparent 40%), /* Laranja */
+        /* Imagem de fundo */
+        url('https://images.pexels.com/photos/932401/pexels-photo-932401.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      filter: blur(8px) brightness(0.7);
+      transform: scale(1.1);
+    }
+    
+    .main-container {
+      width: 100%;
+      max-width: 1200px;
+      padding: 30px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: var(--radius);
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 0 40px rgba(249, 115, 22, 0.2);
     }
     
     header {
@@ -69,10 +126,8 @@
       height: 120px;
       border-radius: 50%;
       object-fit: cover;
-      border: 3px solid #fff; /* Borda branca para destacar a foto do brilho */
-      /* Efeito de neon subtil na foto de perfil */
-      box-shadow: 0 0 15px rgba(59, 130, 246, 0.5), 0 0 25px rgba(16, 185, 129, 0.3);
-      transition: box-shadow 0.3s ease;
+      border: 3px solid var(--accent-orange);
+      box-shadow: 0 0 25px rgba(249, 115, 22, 0.6);
     }
     
     header h1 {
@@ -82,19 +137,25 @@
     }
     
     header p {
-      color: var(--muted);
+      color: var(--text-muted);
       font-size: 1rem;
     }
     
-    main {
-      width: 85%;
+    main, footer {
+      width: 100%;
       max-width: 1100px; 
+      opacity: 0;
+      animation: fadeIn 0.5s ease 0.2s forwards;
+    }
+    
+    @keyframes fadeIn {
+      to { opacity: 1; }
     }
     
     .link-list {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 25px; /* Aumentado o espaço para o brilho respirar */
+      gap: 25px;
       width: 100%;
     }
     
@@ -104,69 +165,102 @@
       border-radius: var(--radius);
       height: 150px;
       display: flex;
-      align-items: flex-end;
+      align-items: center;
       justify-content: center;
       text-decoration: none;
-      color: #fff;
+      color: var(--text-light);
+      background: rgba(30, 41, 59, 0.5);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--glass-border);
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .card-bg {
+      position: absolute;
+      inset: 0;
       background-size: cover;
       background-position: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-      animation: fadeInUp 0.8s ease-out forwards;
+      transition: transform 0.4s ease-out, filter 0.3s ease;
+      filter: brightness(0.9);
     }
     
     .link-card::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent 60%);
-      transition: background 0.3s ease;
+      inset: 0;
+      background: linear-gradient(to top, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.7) 50%, transparent 100%);
+      z-index: 1;
     }
 
-    .link-card span {
-      position: relative;
-      width: 100%;
-      text-align: center;
-      padding: 16px;
+    .card-content {
+        position: relative;
+        z-index: 2;
+        padding: 1rem;
+        width: 100%;
+    }
+
+    .card-content h3 {
       font-weight: 600;
       font-size: 1.1rem;
-      transform: translateY(10px);
-      transition: transform 0.3s ease, color 0.3s ease;
+      margin: 0;
+      transition: color 0.3s ease;
+    }
+
+    .card-content p {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        margin: 4px 0 0;
     }
     
     .link-card:hover {
-      transform: scale(1.04) translateY(-4px); /* Adiciona um leve movimento para cima */
-      /* Efeito de neon no hover dos cards */
-      box-shadow: 0 0 20px rgba(59, 130, 246, 0.6), 0 4px 20px rgba(0,0,0,0.15);
+      transform: translateY(-5px);
+      box-shadow: 0 0 30px rgba(249, 115, 22, 0.4);
+      border-color: var(--accent-orange);
+    }
+    
+    .link-card:hover .card-bg {
+        transform: scale(1.1);
+        filter: brightness(1.1);
     }
 
-    .link-card:hover span {
-      transform: translateY(0);
-      color: var(--accent-green); /* Muda a cor do texto para o verde neon */
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .link-card:hover h3 {
+      color: var(--accent-orange);
     }
     
     footer {
       margin-top: 40px;
-      color: var(--muted);
-      font-size: 0.9rem;
       text-align: center;
     }
 
-    /* Media query para telas de tablet */
+    .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 25px;
+        margin-bottom: 20px;
+    }
+
+    .social-links a {
+        color: var(--text-muted);
+        transition: transform 0.3s ease, color 0.3s ease;
+    }
+    
+    .social-links a:hover {
+        color: var(--accent-orange);
+        transform: translateY(-3px);
+    }
+
+    .social-links svg {
+        width: 28px;
+        height: 28px;
+    }
+
+    .copyright {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+    }
+
     @media (min-width: 640px) {
       .link-list {
         grid-template-columns: repeat(2, 1fr);
@@ -176,42 +270,128 @@
       }
     }
     
-    /* Media query para telas de desktop */
     @media (min-width: 1024px) {
       .link-list {
         grid-template-columns: repeat(3, 1fr);
+      }
+      .main-container {
+        padding: 40px 50px;
       }
     }
   </style>
 </head>
 <body>
-  <header>
-    <img src="https://cdn.pixabay.com/photo/2017/06/13/13/11/man-2399039_640.jpg" alt="Foto de perfil de Fábio Oliveira">
-    <h1>Fábio Oliveira</h1>
-    <p>Empreendedor digital • Criador de produtos milionários</p>
-  </header>
-  
-  <main>
-    <nav class="link-list">
-      <a href="#link1" class="link-card" style="background-image:url('https://cdn.pixabay.com/photo/2015/05/28/14/53/ux-788002_1280.jpg')"><span>Site Oficial</span></a>
-      <a href="#link2" class="link-card" style="background-image:url('https://cdn.pixabay.com/photo/2017/02/15/11/11/brazilian-cheese-bread-2068361_1280.jpg')"><span>Santo Salgado</span></a>
-      <a href="#link3" class="link-card" style="background-image:url('https://cdn.pixabay.com/photo/2021/08/04/13/06/software-developer-6521720_1280.jpg')"><span>Prompt Rico</span></a>
-      <a href="#link4" class="link-card" style="background-image:url('https://cdn.pixabay.com/photo/2016/11/22/19/21/adult-1850178_1280.jpg')"><span>Canal YouTube</span></a>
-      <a href="#link5" class="link-card" style="background-image:url('https://cdn.pixabay.com/photo/2017/08/07/14/02/man-2604149_1280.jpg')"><span>Instagram Fitness</span></a>
-      <a href="#link6" class="link-card" style="background-image:url('https://cdn.pixabay.com/photo/2018/06/22/20/46/analytics-3491942_1280.jpg')"><span>Marketing Digital</span></a>
-      <a href="#link7" class="link-card" style="background-image:url('https://cdn.pixabay.com/photo/2016/03/09/09/22/workplace-1245776_1280.jpg')"><span>Projetos</span></a>
-      <a href="#link8" class="link-card" style="background-image:url('https://cdn.pixabay.com/photo/2022/05/27/04/23/whatsapp-7224209_1280.png')"><span>Contato WhatsApp</span></a>
-      <a href="#link9" class="link-card" style="background-image:url('https://cdn.pixabay.com/photo/2017/07/31/22/59/people-2561937_1280.jpg')"><span>Portfólio</span></a>
-      <a href="#link10" class="link-card" style="background-image:url('https://cdn.pixabay.com/photo/2018/05/08/08/44/artificial-intelligence-3382507_1280.jpg')"><span>IA & Automação</span></a>
-    </nav>
-  </main>
-  
-  <footer>
-    © <span id="year"></span> Fábio Oliveira | Todos os direitos reservados
-  </footer>
+  <div class="main-container">
+    <header>
+      <img src="https://i.imgur.com/DnpbPeV.jpeg" alt="Foto de perfil de Fábio Oliveira">
+      <h1>Fábio Oliveira</h1>
+      <p>Empreendedor de Produtos Digitais e Físicos.</p>
+    </header>
+    
+    <main>
+      <nav class="link-list">
+        
+        <a href="https://ogeradordefrases.vercel.app" target="_blank" rel="noopener noreferrer" class="link-card">
+          <div class="card-bg" style="background-image:url('https://images.pexels.com/photos/261662/pexels-photo-261662.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')"></div>
+          <div class="card-content">
+            <h3>GERADOR DE FRASES</h3>
+            <p>Gere Frases Para suas Redes Sociais</p>
+          </div>
+        </a>
+        
+        <a href="https://santo-salgado.vercel.app/" target="_blank" rel="noopener noreferrer" class="link-card">
+          <div class="card-bg" style="background-image:url('https://images.pexels.com/photos/10787747/pexels-photo-10787747.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')"></div>
+          <div class="card-content">
+            <h3>SANTO SALGADO</h3>
+            <p>Salgados Congelados para Revenda</p>
+          </div>
+        </a>
+        
+        <a href="https://lynkn.vercel.app" target="_blank" rel="noopener noreferrer" class="link-card">
+          <div class="card-bg" style="background-image:url('https://images.pexels.com/photos/3274903/pexels-photo-3274903.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')"></div>
+          <div class="card-content">
+            <h3>LYNKN</h3>
+            <p>Encurtador de Link</p>
+          </div>
+        </a>
+        
+        <a href="https://hubsmart.vercel.app/" target="_blank" rel="noopener noreferrer" class="link-card">
+          <div class="card-bg" style="background-image:url('https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')"></div>
+          <div class="card-content">
+            <h3>HUBSMART</h3>
+            <p>Agregador de Inteligência Artificial</p>
+          </div>
+        </a>
+        
+        <a href="https://guiacorretoracripto.vercel.app" target="_blank" rel="noopener noreferrer" class="link-card">
+          <div class="card-bg" style="background-image:url('https://images.pexels.com/photos/844124/pexels-photo-844124.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')"></div>
+          <div class="card-content">
+            <h3>GUIA CORRETORA CRYPTO</h3>
+            <p>Guia Para Corretoras de Cripto</p>
+          </div>
+        </a>
+
+        <a href="https://prompt-rico.vercel.app/" target="_blank" rel="noopener noreferrer" class="link-card">
+          <div class="card-bg" style="background-image:url('https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')"></div>
+          <div class="card-content">
+            <h3>PROMPT RICO</h3>
+            <p>Prompt para Ganhar Dinheiro</p>
+          </div>
+        </a>
+
+        <a href="https://ocodigodosgenios.vercel.app/" target="_blank" rel="noopener noreferrer" class="link-card">
+          <div class="card-bg" style="background-image:url('https://images.pexels.com/photos/3059747/pexels-photo-3059747.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')"></div>
+          <div class="card-content">
+            <h3>O CÓDIGO DOS GÊNIOS</h3>
+            <p>Ebook de Prompt IA</p>
+          </div>
+        </a>
+
+        <a href="https://quero-e-doo.vercel.app" target="_blank" rel="noopener noreferrer" class="link-card">
+          <div class="card-bg" style="background-image:url('https://images.pexels.com/photos/6646917/pexels-photo-6646917.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')"></div>
+          <div class="card-content">
+            <h3>QUERO E DOO</h3>
+            <p>Site de Doação</p>
+          </div>
+        </a>
+
+      </nav>
+    </main>
+    
+    <footer>
+      <div class="social-links">
+        <a href="https://www.instagram.com/fabio.olliv" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+        </a>
+        <a href="https://www.tiktok.com/@fabio.olliv" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 1.4 3.3 4.9 3.3 4.9s-3.4-.8-4.9-1.6c-.8 4.5-5 8.3-9.4 8.3C4.8 19 2 16.2 2 12.8 2 9.4 4.8 6.6 8.2 6.6c2.5 0 4.7 1.4 5.8 3.4s-.5-7.1 2.5-8.2C17 4.1 17.5 4 18 4h4z"/></svg>
+        </a>
+        <a href="https://youtube.com/@fabioolliv" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+        </a>
+      </div>
+      <div class="copyright">
+        © <span id="year"></span> Fábio Oliveira | Todos os direitos reservados
+      </div>
+    </footer>
+  </div>
 
   <script>
+    // Atualiza o ano no rodapé
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Script para desativar cópia
+    document.addEventListener('contextmenu', event => event.preventDefault());
+    document.addEventListener('keydown', event => {
+      // Bloqueia F12
+      if (event.key === 'F12') {
+        event.preventDefault();
+      }
+      // Bloqueia Ctrl+C, Ctrl+U, Ctrl+S
+      if (event.ctrlKey && ['c', 'u', 's'].includes(event.key.toLowerCase())) {
+        event.preventDefault();
+      }
+    });
   </script>
 </body>
 </html>
